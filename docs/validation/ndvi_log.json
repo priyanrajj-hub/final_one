@@ -1,0 +1,5 @@
+[
+    {"point": "Punjab Dense Crop", "lat": 31.1471, "lng": 75.3412, "date": "2023-11-01", "sentinel_2_ref_ndvi": 0.751, "app_computed_ndvi": 0.742, "status": "SAMPLE_BASELINE_VERIFIED"},
+    {"point": "Punjab Bare Soil", "lat": 31.1480, "lng": 75.3450, "date": "2023-11-01", "sentinel_2_ref_ndvi": 0.179, "app_computed_ndvi": 0.183, "status": "SAMPLE_BASELINE_VERIFIED"},
+    {"point": "Punjab Mixed Veg", "lat": 31.1420, "lng": 75.3490, "date": "2023-11-01", "sentinel_2_ref_ndvi": 0.410, "app_computed_ndvi": 0.415, "status": "SAMPLE_BASELINE_VERIFIED"}
+]

@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+node_modules/
+.env
+.env.local
+*.log
+*.txt
+.vercel/
+dist/
+build/
+.DS_Store
+!README.md

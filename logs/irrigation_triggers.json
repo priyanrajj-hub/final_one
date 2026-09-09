@@ -1,0 +1,14 @@
+{
+    "meta": {
+        "baseline_model": "Fixed 3-day interval",
+        "events_baseline": 10,
+        "events_canopy": 7,
+        "reduction_percentage": "30%",
+        "status": "SAMPLE_BASELINE_LOGS"
+    },
+    "trigger_events_suppressed": [
+        {"date": "2023-10-04", "reason": "Open-Meteo 7-day precipitation forecast detected >5mm rain."},
+        {"date": "2023-10-13", "reason": "NDWI threshold mapping > 0.4 (Soil Moisture Adequate)."},
+        {"date": "2023-10-25", "reason": "Open-Meteo precipitation forecast detected imminent storm."}
+    ]
+}

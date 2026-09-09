@@ -1,0 +1,30 @@
+{
+  "name": "smart-plant-health-monitoring-using-solar-images",
+  "version": "1.0.0",
+  "description": "[![Vercel Deploy](https://img.shields.io/badge/Vercel-Deployed-success)](https://smart-plant-health-monitoring-using-solar-images.vercel.app/)\r [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/priyanrajj-hub/smart-plant-health-monitoring-using-solar-images.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/priyanrajj-hub/smart-plant-health-monitoring-using-solar-images/issues"
+  },
+  "homepage": "https://github.com/priyanrajj-hub/smart-plant-health-monitoring-using-solar-images#readme",
+  "dependencies": {
+    "@google/genai": "^2.21.0",
+    "dotenv": "^17.4.2",
+    "node-fetch": "^3.3.2",
+    "pg": "^8.23.0"
+  }
+}

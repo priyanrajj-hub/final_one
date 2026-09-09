@@ -1,0 +1,11 @@
+{
+    "contents": [
+        {
+            "parts": [
+                {
+                    "text": "You are the Canopy AI Agricultural Analyst. I just scanned a farm polygon using OSINT proxies. The Mean NDVI is 0.450. Return your analysis STRICTLY as a JSON object with the following exact keys, and DO NOT wrap it in markdown code blocks:\n{\n  \"summary\": \"one sentence overview of overall crop canopy health\",\n  \"stress_severity\": \"Low | Moderate | High | Critical\",\n  \"crop_disease_risk\": \"estimated disease risk with likely disease type if inferable from NDVI/weather pattern\",\n  \"pest_risk\": \"estimated pest pressure level and likely pest category if inferable\",\n  \"nutrient_deficiency_estimate\": \"estimated N-P-K deficiency signals inferable\",\n  \"irrigation_recommendation\": \"estimated water need based on current NDVI\",\n  \"climate_risk_flag\": \"flag drought risk\",\n  \"confidence_caveat\": \"AI-estimated reasoning\"\n}"
+                }
+            ]
+        }
+    ]
+}
