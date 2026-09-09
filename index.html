@@ -1141,7 +1141,7 @@
                             lng: (minLng + maxLng) / 2
                         };
 
-                        const overpassPromise = fetch("/api/osm-lookup", {
+                        const overpassPromise = fetch("http://localhost:8000/api/osm-lookup", {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(osmRequestData)

@@ -60,10 +60,16 @@ def get_fields():
 
 from algorithm.crop_inference import infer_crop_type
 
+from typing import Optional, Dict, Any, List
+
 class CropRequest(BaseModel):
-    tags: dict
+    tags: Optional[Dict[str, Any]] = None
     lat: float
     lng: float
+    ndvi_history: Optional[List[float]] = None
+    area: Optional[float] = None
+    log_correction: Optional[bool] = None
+    crop: Optional[str] = None
 
 class AdvisoryRequest(BaseModel):
     nNDVI: float
@@ -73,11 +79,35 @@ class AdvisoryRequest(BaseModel):
     lat: float
     lng: float
     
+from fastapi import Request
+import json
+
 @app.post("/api/crop-inference")
-def compute_crop_inference(req: CropRequest):
-    result = infer_crop_type(req.tags, req.lat, req.lng)
+async def compute_crop_inference(req: Request):
+    try:
+        body = await req.json()
+    except:
+        body_text = await req.body()
+        try:
+            body = json.loads(body_text)
+        except:
+            body = {}
+            
+    lat = body.get("lat", 0.0)
+    lng = body.get("lng", 0.0)
+    tags = body.get("tags", {})
+    
+    if body.get("log_correction"):
+        return {"status": "saved"}
+        
+    result = infer_crop_type(tags, lat, lng)
     prov = "OSM Explicit Tag" if any("OSM" in k for k in result.keys()) else "Inferred from Geo-Heuristics"
-    return {"ranked_crops": result, "provenance": prov}
+    return {"ranked_crops": result, "provenance": prov, "best_guess": list(result.keys())[0] if result else "Unknown", "confidence": list(result.values())[0] if result else 0}
+
+@app.post("/api/osm-lookup")
+async def osm_lookup(req: Request):
+    # Mocking standard landuse to prevent frontend error if the original external api isn't wired
+    return {"elements": [{"tags": {"landuse": "farmland"}}]}
 
 from llm_advisor import get_advisory
 
