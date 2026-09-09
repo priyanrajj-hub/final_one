@@ -942,7 +942,7 @@
             const gem = document.getElementById('h-gemini');
             const sen = document.getElementById('h-sentinel');
 
-            fetch('/api/health')
+            fetch('http://localhost:8000/')
                 .then(r => {
                     if (!r.ok) throw new Error("Backend blocked by Vercel, switching to Local Edge");
                     return r.json();
@@ -1210,7 +1210,7 @@
                             const controller = new AbortController();
                             const fetchTimeout = setTimeout(() => controller.abort(), 35000); // 35 seconds
 
-                            const gemRes = await fetch('/api/gemini', {
+                            const gemRes = await fetch('http://localhost:8000/api/gemini', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify(geminiPayload),
@@ -1412,7 +1412,7 @@
                             document.getElementById('p-crop-type').innerHTML = '<span class="loading-skeleton" style="width:70px;height:12px;display:inline-block;"></span>';
 
                             try {
-                                const infRes = await fetch('/api/crop_inference', {
+                                const infRes = await fetch('http://localhost:8000/api/crop-inference', {
                                     method: 'POST',
                                     body: JSON.stringify({
                                         lat: centerLat, lng: centerLng,
@@ -1427,7 +1427,7 @@
                                     cropTypeHTML = `
                                         <div style="display:flex; flex-direction:column; gap:4px;">
                                             <div><span id="inferred-crop-label" style="color:var(--leaf-300);">${inf.best_guess}</span> <span style="font-size:9px; color:#888;">(${inf.confidence}%)</span></div>
-                                            <select onchange="localStorage.setItem('${parcelKey}', this.value); document.getElementById('inferred-crop-label').textContent = this.value; this.style.display='none'; fetch('/api/crop_inference', { method: 'POST', body: JSON.stringify({ log_correction: true, crop: this.value, lat: ${centerLat}, lng: ${centerLng} }) });" 
+                                            <select onchange="localStorage.setItem('${parcelKey}', this.value); document.getElementById('inferred-crop-label').textContent = this.value; this.style.display='none'; fetch('http://localhost:8000/api/crop-inference', { method: 'POST', body: JSON.stringify({ log_correction: true, crop: this.value, lat: ${centerLat}, lng: ${centerLng} }) });" 
                                                 style="background:transparent; color:#eab308; border:1px dashed #eab308; border-radius:3px; font-family:var(--mono); padding:2px; font-size:10px; cursor:pointer; max-width:180px;">
                                                 <option value="" disabled selected>Not sure? Correct it</option>
                                                 ${selectOptions}

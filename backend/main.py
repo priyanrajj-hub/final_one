@@ -91,5 +91,29 @@ def generate_advisory(req: AdvisoryRequest):
     }
     return get_advisory(sensor_data)
 
+from fastapi import Request
+
+@app.post("/api/gemini")
+async def gemini_proxy(req: Request):
+    data = await req.json()
+    try:
+        prompt_text = data.get("contents", [{}])[0].get("parts", [{}])[0].get("text", "")
+    except Exception:
+        return {"error": {"message": "Invalid request format"}}
+        
+    import google.generativeai as genai
+    import os
+    API_KEY = os.getenv("GEMINI_API_KEY")
+    if not API_KEY:
+        return {"error": {"message": "API Key missing, triggering fallback"}}
+    
+    try:
+        genai.configure(api_key=API_KEY.strip('\\').strip())
+        model = genai.GenerativeModel('gemini-1.5-flash', generation_config={"response_mime_type": "application/json"})
+        response = model.generate_content(prompt_text)
+        return {"text": response.text}
+    except Exception as e:
+        return {"error": {"message": str(e)}}
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
