@@ -139,7 +139,7 @@ async def gemini_proxy(req: Request):
     
     try:
         genai.configure(api_key=API_KEY.strip('\\').strip())
-        model = genai.GenerativeModel('gemini-1.5-flash', generation_config={"response_mime_type": "application/json"})
+        model = genai.GenerativeModel('gemini-2.5-flash', generation_config={"response_mime_type": "application/json"})
         response = model.generate_content(prompt_text)
         return {"text": response.text}
     except Exception as e:

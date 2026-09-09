@@ -18,7 +18,7 @@ def init_model():
         genai.configure(api_key=api_key)
         # Use gemini-1.5-flash which is the standard fast model
         try:
-            return genai.GenerativeModel('gemini-1.5-flash', generation_config={"response_mime_type": "application/json"})
+            return genai.GenerativeModel('gemini-2.5-flash', generation_config={"response_mime_type": "application/json"})
         except Exception as e:
             print(f"Error initializing generative model: {e}")
             return None
