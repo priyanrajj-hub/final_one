@@ -145,5 +145,36 @@ async def gemini_proxy(req: Request):
     except Exception as e:
         return {"error": {"message": str(e)}}
 
+from ml_pipeline import online_model
+
+class MLPredictRequest(BaseModel):
+    nNDVI: float
+    lbp_texture_score: float
+    capacitance: float
+    acoustic_score: float
+
+class MLFeedbackRequest(BaseModel):
+    nNDVI: float
+    lbp_texture_score: float
+    capacitance: float
+    acoustic_score: float
+    true_label: str
+
+@app.post("/api/ml-predict")
+def ml_predict(req: MLPredictRequest):
+    features = [req.nNDVI, req.lbp_texture_score, req.capacitance, req.acoustic_score]
+    pred, conf = online_model.predict(features)
+    return {"prediction": pred, "confidence": conf}
+
+@app.post("/api/ml-feedback")
+def ml_feedback(req: MLFeedbackRequest):
+    features = [req.nNDVI, req.lbp_texture_score, req.capacitance, req.acoustic_score]
+    status = online_model.feedback(features, req.true_label)
+    return status
+
+@app.get("/api/ml-status")
+def ml_status():
+    return online_model.get_status()
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
